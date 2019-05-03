@@ -56,7 +56,7 @@ function makeServiceMutations() {
       }
       if (
         Model &&
-        BaseModel &&
+        typeof BaseModel === 'object' &&
         !(item instanceof BaseModel) &&
         !(item instanceof Model)
       ) {

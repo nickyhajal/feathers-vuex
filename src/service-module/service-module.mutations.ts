@@ -27,7 +27,7 @@ export default function makeServiceMutations() {
         delete item.__isTemp
       }
 
-      if (Model && BaseModel && !(item instanceof BaseModel) && !(item instanceof Model)) {
+      if (Model && typeof BaseModel === 'object' && !(item instanceof BaseModel) && !(item instanceof Model)) {
         item = new Model(item)
       }
 

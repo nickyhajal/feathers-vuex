@@ -310,7 +310,7 @@ export function createRelatedInstance({ item, Model, idField, store }) {
 export function isBaseModelInstance(item) {
   const baseModels = Object.keys(models).map(alias => models[alias].BaseModel)
   return !!baseModels.find(BaseModel => {
-    return BaseModel && item instanceof BaseModel
+    return typeof BaseModel === 'object' && item instanceof BaseModel
   })
 }
 

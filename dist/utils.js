@@ -302,7 +302,7 @@ function isBaseModelInstance(item) {
     return index_1.models[alias].BaseModel
   })
   return !!baseModels.find(function(BaseModel) {
-    return BaseModel && item instanceof BaseModel
+    return typeof BaseModel === 'object' && item instanceof BaseModel
   })
 }
 exports.isBaseModelInstance = isBaseModelInstance
