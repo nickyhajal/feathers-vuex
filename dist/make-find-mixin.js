@@ -62,67 +62,70 @@ function makeFindMixin(options) {
   var PAGINATION = prefix + 'PaginationData'
   var LOCAL = prefix + 'Local'
   var QID = prefix + 'Qid'
-  var data = ((_a = {}),
-  (_a[IS_FIND_PENDING] = false),
-  (_a[WATCH] = watch),
-  (_a[QID] = qid),
-  _a)
+  var data =
+    ((_a = {}),
+    (_a[IS_FIND_PENDING] = false),
+    (_a[WATCH] = watch),
+    (_a[QID] = qid),
+    _a)
   var mixin = {
     data: function() {
       return data
     },
-    computed: ((_b = {}),
-    (_b[ITEMS] = function() {
-      return this[PARAMS] ? this[FIND_GETTER](this[PARAMS]).data : []
-    }),
-    (_b[ITEMS_FETCHED] = function() {
-      if (this[FETCH_PARAMS]) {
-        return this[FIND_GETTER](this[FETCH_PARAMS]).data
-      } else {
-        return this[ITEMS]
-      }
-    }),
-    (_b[FIND_GETTER] = function() {
-      var _this = this
-      return function(params) {
-        return _this.$store.getters[_this[SERVICE_NAME] + '/find'](params)
-      }
-    }),
-    _b),
-    methods: ((_c = {}),
-    (_c[FIND_ACTION] = function(params) {
-      var _this = this
-      var paramsToUse
-      if (params) {
-        paramsToUse = params
-      } else if (this[FETCH_PARAMS] || this[FETCH_PARAMS] === null) {
-        paramsToUse = this[FETCH_PARAMS]
-      } else {
-        paramsToUse = this[PARAMS]
-      }
-      if (!this[LOCAL]) {
-        if (
-          typeof this[QUERY_WHEN] === 'function'
-            ? this[QUERY_WHEN](paramsToUse)
-            : this[QUERY_WHEN]
-        ) {
-          this[IS_FIND_PENDING] = true
-          if (paramsToUse) {
-            paramsToUse.query = paramsToUse.query || {}
-            if (qid) {
-              paramsToUse.qid = qid
+    computed:
+      ((_b = {}),
+      (_b[ITEMS] = function() {
+        return this[PARAMS] ? this[FIND_GETTER](this[PARAMS]).data : []
+      }),
+      (_b[ITEMS_FETCHED] = function() {
+        if (this[FETCH_PARAMS]) {
+          return this[FIND_GETTER](this[FETCH_PARAMS]).data
+        } else {
+          return this[ITEMS]
+        }
+      }),
+      (_b[FIND_GETTER] = function() {
+        var _this = this
+        return function(params) {
+          return _this.$store.getters[_this[SERVICE_NAME] + '/find'](params)
+        }
+      }),
+      _b),
+    methods:
+      ((_c = {}),
+      (_c[FIND_ACTION] = function(params) {
+        var _this = this
+        var paramsToUse
+        if (params) {
+          paramsToUse = params
+        } else if (this[FETCH_PARAMS] || this[FETCH_PARAMS] === null) {
+          paramsToUse = this[FETCH_PARAMS]
+        } else {
+          paramsToUse = this[PARAMS]
+        }
+        if (!this[LOCAL]) {
+          if (
+            typeof this[QUERY_WHEN] === 'function'
+              ? this[QUERY_WHEN](paramsToUse)
+              : this[QUERY_WHEN]
+          ) {
+            this[IS_FIND_PENDING] = true
+            if (paramsToUse) {
+              paramsToUse.query = paramsToUse.query || {}
+              if (qid) {
+                paramsToUse.qid = qid
+              }
+              return this.$store
+                .dispatch(this[SERVICE_NAME] + '/find', paramsToUse)
+                .then(function(response) {
+                  _this[IS_FIND_PENDING] = false
+                  return response
+                })
             }
-            return this.$store
-              .dispatch(this[SERVICE_NAME] + '/find', paramsToUse)
-              .then(function(response) {
-                _this[IS_FIND_PENDING] = false
-                return response
-              })
           }
         }
-      }
-    }),
-    _c),
+      }),
+      _c),
     created: function() {
       var _this = this
       debug &&

@@ -61,45 +61,48 @@ function makeFindMixin(options) {
   var LOCAL = prefix + 'Local'
   var QID = prefix + 'Qid'
   var ID = prefix + 'Id'
-  var data = ((_a = {}),
-  (_a[IS_GET_PENDING] = false),
-  (_a[WATCH] = watch),
-  (_a[QID] = qid),
-  _a)
+  var data =
+    ((_a = {}),
+    (_a[IS_GET_PENDING] = false),
+    (_a[WATCH] = watch),
+    (_a[QID] = qid),
+    _a)
   var mixin = {
     data: function() {
       return data
     },
-    computed: ((_b = {}),
-    (_b[ITEM] = function() {
-      return this[ID]
-        ? this.$store.getters[this[SERVICE_NAME] + '/get'](this[ID])
-        : null
-    }),
-    (_b[QUERY_WHEN] = function() {
-      return true
-    }),
-    _b),
-    methods: ((_c = {}),
-    (_c[GET_ACTION] = function(id, params) {
-      var _this = this
-      var paramsToUse = params || this[FETCH_PARAMS] || this[PARAMS]
-      var idToUse = id || this[ID]
-      if (!this[LOCAL]) {
-        if (this[QUERY_WHEN]) {
-          this[IS_GET_PENDING] = true
-          if (idToUse) {
-            return this.$store
-              .dispatch(this[SERVICE_NAME] + '/get', [idToUse, paramsToUse])
-              .then(function(response) {
-                _this[IS_GET_PENDING] = false
-                return response
-              })
+    computed:
+      ((_b = {}),
+      (_b[ITEM] = function() {
+        return this[ID]
+          ? this.$store.getters[this[SERVICE_NAME] + '/get'](this[ID])
+          : null
+      }),
+      (_b[QUERY_WHEN] = function() {
+        return true
+      }),
+      _b),
+    methods:
+      ((_c = {}),
+      (_c[GET_ACTION] = function(id, params) {
+        var _this = this
+        var paramsToUse = params || this[FETCH_PARAMS] || this[PARAMS]
+        var idToUse = id || this[ID]
+        if (!this[LOCAL]) {
+          if (this[QUERY_WHEN]) {
+            this[IS_GET_PENDING] = true
+            if (idToUse) {
+              return this.$store
+                .dispatch(this[SERVICE_NAME] + '/get', [idToUse, paramsToUse])
+                .then(function(response) {
+                  _this[IS_GET_PENDING] = false
+                  return response
+                })
+            }
           }
         }
-      }
-    }),
-    _c),
+      }),
+      _c),
     created: function() {
       var _this = this
       debug &&

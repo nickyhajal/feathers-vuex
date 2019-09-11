@@ -99,7 +99,7 @@
   },
   "dependencies": {
     "@feathersjs/adapter-commons": "^2.0.0",
-    "@feathersjs/commons": "4.3.0",
+    "@feathersjs/commons": "4.0.0",
     "@feathersjs/errors": "^3.3.6",
     "@types/deep-diff": "^1.0.0",
     "@types/feathersjs__feathers": "^3.1.1",
