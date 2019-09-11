@@ -331,6 +331,7 @@ function makeModel(options) {
     BaseModel.models = global_models_1.globalModels // Can access other Models here
     BaseModel.copiesById = {}
     BaseModel.merge = utils_1.mergeWithAccessors
+    BaseModel.modelName = 'BaseModel'
     return BaseModel
   })()
   addModel(BaseModel)

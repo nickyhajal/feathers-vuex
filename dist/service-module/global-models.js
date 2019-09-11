@@ -14,12 +14,13 @@ function prepareAddModel(options) {
     exports.globalModels[serverAlias] = exports.globalModels[serverAlias] || {
       byServicePath: {}
     }
-    if (exports.globalModels[serverAlias][Model.name] && options.debug) {
+    var name = Model.modelName || Model.name
+    if (exports.globalModels[serverAlias][name] && options.debug) {
       console.error(
-        'Overwriting Model: models[' + serverAlias + '][' + Model.name + '].'
+        'Overwriting Model: models[' + serverAlias + '][' + name + '].'
       )
     }
-    exports.globalModels[serverAlias][Model.name] = Model
+    exports.globalModels[serverAlias][name] = Model
     exports.globalModels[serverAlias].byServicePath[Model.servicePath] = Model
   }
 }
