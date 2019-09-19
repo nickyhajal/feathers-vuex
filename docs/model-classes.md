@@ -138,6 +138,12 @@ export default new Vuex.Store({
 
 With the above configuration, when you create a [`Todo` instance](./model-classes.md), it will have the attributes provided as `instanceDefaults`.  This is especially useful for binding to form data.  If the attributes aren't defined while binding, the automatic Vue reactivity won't work.  Remember to not set any of the attributes to `undefined`, but instead use `null`.  If not, the reactivity breaks, and you might spend some time wondering why your form is broken.
 
+### A Word Of Warning
+
+One thing to be aware of when using `instanceDefaults` as an object is that values can persist between instances and mutate separate instances. For example, when including an `Array`, changes made to one instance will affect any other instances of this model too.
+
+Using `instanceDefaults` as an object will be deprecated in the next major version of `feathers-vuex` so it's best to stick to the function option below.
+
 ## instanceDefaults | Function  <Badge text="1.7.0+" /> <Badge text="recommended" type="warn"/>
 
 A much more powerful API is available when you provide `instanceDefaults` as a function.  The function will be called with the following arguments and should return an instanceDefaults object.
@@ -194,7 +200,7 @@ export default new Vuex.Store({
 
 ### `instance.save(params)`
 
-The `save` method is a convenience wrapper for the `create/patch` methods, by default. If the records has no `_id`, the `instance.create()` method will be used. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.md#service-methods) docs, for reference on where params are used in each method.
+The `save` method is a convenience wrapper for the `create/patch` methods, by default. If the records has no `_id`, the `instance.create()` method will be used. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.html#service-methods) docs, for reference on where params are used in each method.
 
 ```js
 // In your Vue component
@@ -212,7 +218,7 @@ As mentioned, `save` performs either `create` or `patch`, but you can use the `p
 
 ### `instance.create(params)`
 
-The `create` method is a shortcut for calling the `create` action (service method) using the instance data. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.md#service-methods) docs, for reference.
+The `create` method is a shortcut for calling the `create` action (service method) using the instance data. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.html#service-methods) docs, for reference.
 
 You might not ever need to use `.create()`, but can instead use the `.save()` method. Let `feathers-vuex` call `create` or `patch`.
 
@@ -226,7 +232,7 @@ todo.create() // --> Creates the todo on the server using the instance data
 
 ### `instance.patch(params)`
 
-The `patch` method is a shortcut for calling the `patch` action (service method) using the instance data. The instance's id field is used for the `patch` id.  The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.md#service-methods) docs, for reference.
+The `patch` method is a shortcut for calling the `patch` action (service method) using the instance data. The instance's id field is used for the `patch` id.  The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.html#service-methods) docs, for reference.
 
 Similar to the `.create()` method, you might not ever need to use `.patch()` if you just use `.save()` and let `feathers-vuex` figure out how to handle it.
 
@@ -243,7 +249,7 @@ todo.patch() // --> Sends a `patch` request the with the id and description.
 
 ### `instance.update(params)`
 
-The `update` method is a shortcut for calling the `update` action (service method) using the instance data. The instance's id field is used for the `update` id. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.md#service-methods) docs, for reference.
+The `update` method is a shortcut for calling the `update` action (service method) using the instance data. The instance's id field is used for the `update` id. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.html#service-methods) docs, for reference.
 
 Use `.update()` whenever you want to completely replace the data on the server with the instance data.  You can also set the `preferUpdate` option to `true` to make `.save()` call `.update()` when an id field is present on the instance.
 
@@ -258,7 +264,7 @@ todo.update() // --> Sends a `update` request the with all instance data.
 
 ### `instance.remove(params)`
 
-The `remove` method is a shortcut for calling the `remove` action (service method) using the instance data. The instance's id field is used for the `remove` id. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.md#service-methods) docs, for reference.
+The `remove` method is a shortcut for calling the `remove` action (service method) using the instance data. The instance's id field is used for the `remove` id. The `params` argument will be used in the Feathers client request.  See the [Feathers Service](https://docs.feathersjs.com/api/services.html#service-methods) docs, for reference.
 
 ```js
 const { Todo } = this.$FeathersVuex
