@@ -20,7 +20,6 @@ eslint
 @typescript-eslint/explicit-function-return-type: 0,
 @typescript-eslint/no-explicit-any: 0
 */
-var sift_1 = __importDefault(require('sift'))
 var commons_1 = __importDefault(require('@feathersjs/commons'))
 var adapter_commons_1 = __importDefault(require('@feathersjs/adapter-commons'))
 var lodash_1 = require('lodash')
@@ -62,7 +61,6 @@ function makeServiceGetters() {
         if (params.temps) {
           values = values.concat(_.values(state.tempsById))
         }
-        values = sift_1.default(query, values)
         var total = values.length
         if (filters.$sort) {
           values.sort(sorter(filters.$sort))
